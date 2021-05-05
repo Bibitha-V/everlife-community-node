@@ -597,3 +597,17 @@ button {
   padding: 10px;
   font-size: 1rem;
 }
+#pharsetext {
+  border-radius: 1.25rem;
+  border: 0px;
+  box-sizing: border-box;
+  background: rgba(227, 229, 233, 0.767);
+  font-size: 1rem;
+  padding: 1.875rem 2.25rem;
+  width: 100%;
+  resize: none;
+  transition: all 0.15s ease-in-out 0s;
+  min-height: 10rem;
+  margin-top: 2rem;
+  
+}

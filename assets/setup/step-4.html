@@ -28,19 +28,14 @@
             <img src="../../assets/img/backup-icon.svg" class="sc-dkQUut fKLEUn">
         </div>
         <h1 class="sc-ArjOu cIlxaw">Confirm your backup phrase</h1>
-        <h2 id="err-txt" class="sc-khIgXV eZiEu">Select your third word of your backup phrase to confirm you got them right
+        <h2 id="err-txt" class="sc-khIgXV eZiEu">Please confirm your backup phrase
         </h2>
     </div>
 
         <section class="sc-gSYCTC sc-dFRpvv fkCSEE kMrhLB">
-            <p>For your security, we would like to check that you have
-            saved the backup phrase correctly. In order to check that
-            please select the third word of your backup phrase from the below list of words.
-            If you haven't saved the backup phrase, please go back and do it again.
-            </p>
+        
+            <textarea name="mnemonicPhrase" placeholder="Paste your 24 word backup phrase here to confirm" id="pharsetext"></textarea>
             <span id ='err-selection'></span>
-            <div  class="sc-bXevSJ fwjTzB" type='text' value=''  id ='pharsetext'></div>
-
 
             <div class="sc-csTaMs dugqNO" id ='generate'  >
 
@@ -52,8 +47,5 @@
                 </div></section></section>
 
 <script src="../../elife/key-management-fns.js"></script>
-<script>
-   generatekeys()
-</script>
 </body>
 </html>

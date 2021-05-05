@@ -2,7 +2,7 @@
   "name": "everlife-explorer",
   "productName": "EverlifeExplorer",
   "repository": "git@github.com:everlifeai/everlife-community-node.git",
-  "version": "2.0.0-rc4",
+  "version": "2.0.0-rc5",
   "description": "The Everlife Community Node Edition",
   "main": "index.js",
   "scripts": {
@@ -20,6 +20,7 @@
   "dependencies": {
     "@elife/pkg-mgr": "^5.3.0",
     "@elife/pm2": "^3.5.1",
+    "@elife/secret": "^2.0.0",
     "@elife/utils": "^4.0.0",
     "@tpp/luminate": "^4.1.2",
     "app-root-path": "^3.0.0",
@@ -136,7 +137,10 @@
   "build": {
     "appId": "ai.everlife.avatar",
     "asar": true,
-    "asarUnpack": ["services/elife-ai/brains/ebrain-aiml/aiml","assets/models"],
+    "asarUnpack": [
+      "services/elife-ai/brains/ebrain-aiml/aiml",
+      "assets/models"
+    ],
     "afterSign": "scripts/afterSign.js",
     "mac": {
       "hardenedRuntime": true,

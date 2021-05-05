@@ -54,7 +54,9 @@ function backup(loc, cb) {
         const secretFilePath = path.join(u.dataLoc() , "__ssb/secret")
         const luminatepw = path.join(u.dataLoc(), ".luminate-pw")
         bk.append(fs.createReadStream(secretFilePath), { name: 'secret' })
-        bk.append(fs.createReadStream(luminatepw), { name: '.luminate-pw' })
+        if (fs.existsSync(luminatepw)) {
+            bk.append(fs.createReadStream(luminatepw), { name: '.luminate-pw' })
+        }
         bk.directory(path.join(u.dataLoc(), 'stellar'), false)
     }
 

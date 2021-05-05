@@ -8,14 +8,15 @@ var Path = require('path');
 const { electron } = require('process');
 const u = require('@elife/utils');
 let loginUserName;
+
 // load the models
 function openWebcam(){
-    let resourcePath=unpackedAsarPath()
+  let resourcePath=unpackedAsarPath()
 Promise.all([
-  faceapi.nets.tinyFaceDetector.loadFromDisk('resourcePath'),
-  faceapi.nets.faceLandmark68Net.loadFromDisk('resourcePath'),
-  faceapi.nets.faceRecognitionNet.loadFromDisk('resourcePath'),
-  faceapi.nets.ssdMobilenetv1.loadFromDisk('resourcePath')
+  faceapi.nets.tinyFaceDetector.loadFromDisk(resourcePath),
+  faceapi.nets.faceLandmark68Net.loadFromDisk(resourcePath),
+  faceapi.nets.faceRecognitionNet.loadFromDisk(resourcePath),
+  faceapi.nets.ssdMobilenetv1.loadFromDisk(resourcePath)
   ]).then(startVideo)
   // document.getElementById('scan').innerHTML='Everlife is scaning your face'
 
@@ -39,18 +40,18 @@ Promise.all([
         });
     }
   }
-  
+
   video.addEventListener('play', async () => {
   //create the canvas from video element as we have created above
   const canvas = faceapi.createCanvasFromMedia(video)
-  //append canvas to body 
+  //append canvas to body
   document.body.append(canvas)
   // displaySize will help us to match the dimension with video screen and accordingly it will draw our detections
   // on the streaming video screen
   const displaySize = { width: video.width, height: video.height }
   faceapi.matchDimensions(canvas, displaySize)
-  const detections = await faceapi.detectAllFaces(video).withFaceLandmarks().withFaceDescriptors();  
-  
+  const detections = await faceapi.detectAllFaces(video).withFaceLandmarks().withFaceDescriptors();
+
   const resizedDetections = faceapi.resizeResults(detections, displaySize)
   canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height)
   const labeledFaceDescriptors  = await loadEverProfiles()
@@ -60,15 +61,15 @@ Promise.all([
     const box = resizedDetections[i].detection.box
       const drawBox = new faceapi.draw.DrawBox(box, {label: result.label.toString()})
    loginUserName = result.label.toString()
- 
+
       if(loginUserName =='unknown'){
       let data="enter password"
       ipcRenderer.send('login',data)
        var window = remote.getCurrentWindow()
        window.close()
-      
-      
-    }else{ 
+
+
+    }else{
       let winData = 'Go to main Window'
       ipcRenderer.send('main-window', winData )
       var window = remote.getCurrentWindow()
@@ -82,7 +83,7 @@ Promise.all([
   const imageFiles=fs.readdirSync(directoryPath+'/')
 
   function loadEverProfiles() {
-  
+
     const labels = files
     return Promise.all(
       labels.map(async label => {
@@ -92,21 +93,20 @@ Promise.all([
           const detections = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor()
           descriptions.push(detections.descriptor)
         }
-    
+
         return new faceapi.LabeledFaceDescriptors(label, descriptions)
       })
     )
   }
-  
+
 }
 
 function unpackedAsarPath() {
-  let packedPath =path.join(__dirname,'..','./models' );
-  let unpackedAsarPath = './resources/app.asar.unpacked/assets/models' ; 
-  if (unpackedAsarPath.includes('/app.asar/') || 
-      unpackedAsarPath.includes('\\app.asar\\')) {
-        packedPath = unpackedAsarPath.replace('app.asar','app.asar.unpacked')
+  let p = path.join(__dirname,'..','./models' )
+  if (p.includes('/app.asar/') ||
+      p.includes('\\app.asar\\')) {
+        p = p.replace('app.asar','app.asar.unpacked')
   }
-  return packedPath;
+  return p
 }
 
